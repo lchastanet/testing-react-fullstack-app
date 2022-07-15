@@ -11,7 +11,7 @@ test("Capitalize a word", () => {
   })
 ```
 
-Then run :
+Then run (in the frontend directory) :
 
 ```shell
 $ npm run test
@@ -113,3 +113,47 @@ test("Render App list", async () => {
 ```
 
 Now, our front application should be correctly covered. 
+
+To be able to test the routes of our backend application, we will use [supertest](https://www.npmjs.com/package/supertest)
+
+Then we will test our `student` endpoint with :
+
+```js
+const server = require("../index.js")
+const supertest = require("supertest")
+const request = supertest(server)
+
+afterEach(() => {
+  server.close()
+})
+
+describe("Students Endpoints", () => {
+  it("GET /students should show all students", async () => {
+    const res = await request.get("/students")
+    expect(res.status).toEqual(200)
+    expect(res.type).toEqual(expect.stringContaining("json"))
+    expect(typeof res.body).toBe(typeof [])
+  })
+
+  it("GET /students/:id should show one student", async () => {
+    const res = await request.get("/students/2")
+    expect(res.status).toEqual(200)
+    expect(res.type).toEqual(expect.stringContaining("json"))
+    expect(typeof res.body).toBe(typeof {})
+    expect(res.body).toHaveProperty("firstname")
+    expect(res.body).toHaveProperty("lastname")
+    expect(res.body).toHaveProperty("age")
+    expect(res.body).toHaveProperty("remote")
+  })
+})
+```
+
+You can now take a look on the coverage report with the command :
+
+```shell
+$ npm test -- --coverage
+```
+
+You could add more tests to complete the test covering of the backend application.
+
+(Note that in this tutorial we've juste seen a little part of how to test an application, for exemple if you want to test insertions and deletions, you should do it in an test environnement, on a dedicate database)
