@@ -1,9 +1,18 @@
-const server = require("../index.js")
+const server = require("../../index.js")
+const db = require("../models/db")
 const supertest = require("supertest")
 const request = supertest(server)
 
-afterEach(() => {
+afterAll(() => {
   server.close()
+  db.end()
+})
+
+describe("Get error page", () => {
+  it("GET /* should return 404", async () => {
+    const res = await supertest(server).get("/toto")
+    expect(res.status).toEqual(404)
+  })
 })
 
 describe("Students Endpoints", () => {

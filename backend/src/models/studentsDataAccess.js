@@ -4,10 +4,7 @@ exports.findAll = () => {
   return db
     .promise()
     .query("SELECT * FROM `student`")
-    .then((result) => {
-      db.end()
-      return result[0]
-    })
+    .then((result) => result[0])
 }
 
 exports.findOne = (studentId) => {
