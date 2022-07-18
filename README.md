@@ -46,7 +46,7 @@ describe("Student Card", () => {
 })
 ```
 
-Now we will test the SwitchButton component triggering the click event :
+Now we will test the `SwitchButton` component triggering the click event :
 
 ```js
 test("Change theme", async () => {
@@ -58,7 +58,7 @@ test("Change theme", async () => {
 })
 ```
 
-And finally we need to test the App component, for this on we'll need to moke the API call.
+And finally we need to test the `App` component, for this on we'll need to moke the API call.
 So install the `Mock Service Worker` with the following command:
 
 ```shell
