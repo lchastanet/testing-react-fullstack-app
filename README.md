@@ -120,6 +120,7 @@ Then we will test our `student` endpoint with :
 
 ```js
 const server = require("../index.js")
+const db = require("../src/models/db")
 const supertest = require("supertest")
 const request = supertest(server)
 
